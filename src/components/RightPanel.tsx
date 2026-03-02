@@ -1,5 +1,6 @@
 import { ScatterChart, Scatter, XAxis, YAxis, ZAxis, Tooltip, ResponsiveContainer, Cell } from "recharts";
-import { mockData, CHART_COLORS } from "@/data/mockData";
+import { CHART_COLORS } from "@/data/mockData";
+import { useData } from "@/context/DataContext";
 import { useEffect, useState } from "react";
 
 const ClusterTooltip = ({ active, payload }: any) => {
@@ -15,6 +16,7 @@ const ClusterTooltip = ({ active, payload }: any) => {
 };
 
 const ClusterChart = () => {
+  const { data } = useData();
   return (
     <div className="panel animate-fade-slow" style={{ animationDelay: "300ms" }}>
       <div className="panel-header">
@@ -29,8 +31,8 @@ const ClusterChart = () => {
             <YAxis type="number" dataKey="y" domain={[0, 100]} hide />
             <ZAxis type="number" dataKey="abundance" range={[200, 2000]} />
             <Tooltip content={<ClusterTooltip />} />
-            <Scatter data={mockData.clusters} animationBegin={500} animationDuration={800}>
-              {mockData.clusters.map((_, i) => (
+            <Scatter data={data.clusters} animationBegin={500} animationDuration={800}>
+              {data.clusters.map((_, i) => (
                 <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} fillOpacity={0.75} />
               ))}
             </Scatter>
@@ -42,12 +44,14 @@ const ClusterChart = () => {
 };
 
 const AnalysisLog = () => {
+  const { data } = useData();
   const [visibleCount, setVisibleCount] = useState(0);
 
   useEffect(() => {
+    setVisibleCount(0);
     const interval = setInterval(() => {
       setVisibleCount((c) => {
-        if (c >= mockData.log_entries.length) {
+        if (c >= data.log_entries.length) {
           clearInterval(interval);
           return c;
         }
@@ -55,7 +59,7 @@ const AnalysisLog = () => {
       });
     }, 400);
     return () => clearInterval(interval);
-  }, []);
+  }, [data.log_entries]);
 
   return (
     <div className="panel animate-fade-slow flex flex-col" style={{ animationDelay: "400ms", flex: 1 }}>
@@ -65,13 +69,13 @@ const AnalysisLog = () => {
         </span>
       </div>
       <div className="terminal-box flex-1 overflow-y-auto p-3 m-2 rounded">
-        {mockData.log_entries.slice(0, visibleCount).map((entry, i) => (
+        {data.log_entries.slice(0, visibleCount).map((entry, i) => (
           <div key={i} className="flex gap-2 mb-1 animate-count-up">
             <span className="opacity-50">[{entry.time}]</span>
             <span>▸ {entry.message}</span>
           </div>
         ))}
-        {visibleCount < mockData.log_entries.length && (
+        {visibleCount < data.log_entries.length && (
           <span className="inline-block w-1.5 h-3.5 bg-current animate-pulse ml-1" />
         )}
       </div>

@@ -1,34 +1,6 @@
 import { Dna, Microscope, Star, BarChart3 } from "lucide-react";
 import { useCountUp } from "@/hooks/useCountUp";
-import { mockData } from "@/data/mockData";
-
-const stats = [
-  {
-    label: "Total Sequences",
-    value: mockData.total_sequences,
-    icon: Dna,
-    format: "number",
-  },
-  {
-    label: "Unique Species",
-    value: mockData.unique_species,
-    icon: Microscope,
-    format: "number",
-  },
-  {
-    label: "Most Abundant",
-    value: 0,
-    display: mockData.most_abundant,
-    icon: Star,
-    format: "text",
-  },
-  {
-    label: "Shannon Index",
-    value: mockData.biodiversity_index,
-    icon: BarChart3,
-    format: "decimal",
-  },
-];
+import { useData } from "@/context/DataContext";
 
 const StatCard = ({
   label,
@@ -76,6 +48,15 @@ const StatCard = ({
 };
 
 const StatsPanel = () => {
+  const { data } = useData();
+
+  const stats = [
+    { label: "Total Sequences", value: data.total_sequences, icon: Dna, format: "number" },
+    { label: "Unique Species", value: data.unique_species, icon: Microscope, format: "number" },
+    { label: "Most Abundant", value: 0, display: data.most_abundant, icon: Star, format: "text" },
+    { label: "Shannon Index", value: data.biodiversity_index, icon: BarChart3, format: "decimal" },
+  ];
+
   return (
     <div className="flex flex-col gap-3">
       {stats.map((stat, i) => (
