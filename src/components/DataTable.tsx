@@ -1,28 +1,29 @@
 import { useState, useMemo } from "react";
-import { mockData } from "@/data/mockData";
+import { useData } from "@/context/DataContext";
 import { Search, ArrowUpDown } from "lucide-react";
 
 type SortKey = "species" | "count" | "percentage" | "cluster" | "confidence";
 
 const DataTable = () => {
+  const { data } = useData();
   const [search, setSearch] = useState("");
   const [sortKey, setSortKey] = useState<SortKey>("count");
   const [sortAsc, setSortAsc] = useState(false);
 
   const filtered = useMemo(() => {
-    let data = mockData.table_data;
+    let rows = data.table_data;
     if (search) {
-      data = data.filter((d) =>
+      rows = rows.filter((d) =>
         d.species.toLowerCase().includes(search.toLowerCase())
       );
     }
-    return [...data].sort((a, b) => {
+    return [...rows].sort((a, b) => {
       const av = a[sortKey];
       const bv = b[sortKey];
       if (typeof av === "string") return sortAsc ? (av as string).localeCompare(bv as string) : (bv as string).localeCompare(av as string);
       return sortAsc ? (av as number) - (bv as number) : (bv as number) - (av as number);
     });
-  }, [search, sortKey, sortAsc]);
+  }, [search, sortKey, sortAsc, data.table_data]);
 
   const toggleSort = (key: SortKey) => {
     if (sortKey === key) setSortAsc(!sortAsc);
@@ -59,11 +60,7 @@ const DataTable = () => {
           <thead>
             <tr className="border-b border-border">
               {headers.map((h) => (
-                <th
-                  key={h.key}
-                  onClick={() => toggleSort(h.key)}
-                  className="table-header-cell cursor-pointer hover:text-foreground transition-colors select-none"
-                >
+                <th key={h.key} onClick={() => toggleSort(h.key)} className="table-header-cell cursor-pointer hover:text-foreground transition-colors select-none">
                   <span className="flex items-center gap-1">
                     {h.label}
                     <ArrowUpDown className="w-3 h-3 opacity-40" />
@@ -74,19 +71,12 @@ const DataTable = () => {
           </thead>
           <tbody>
             {filtered.map((row, i) => (
-              <tr
-                key={row.species}
-                className={`border-b border-border/50 transition-colors hover:bg-muted/50 ${
-                  i === 0 ? "bg-accent/30" : ""
-                }`}
-              >
+              <tr key={row.species} className={`border-b border-border/50 transition-colors hover:bg-muted/50 ${i === 0 ? "bg-accent/30" : ""}`}>
                 <td className="table-cell font-medium">{row.species}</td>
                 <td className="table-cell font-mono text-xs">{row.count.toLocaleString()}</td>
                 <td className="table-cell font-mono text-xs">{row.percentage}%</td>
                 <td className="table-cell">
-                  <span className="bg-secondary text-secondary-foreground text-[10px] font-semibold px-2 py-0.5 rounded-full">
-                    {row.cluster}
-                  </span>
+                  <span className="bg-secondary text-secondary-foreground text-[10px] font-semibold px-2 py-0.5 rounded-full">{row.cluster}</span>
                 </td>
                 <td className="table-cell font-mono text-xs">
                   <span className={row.confidence >= 0.93 ? "confidence-high" : "confidence-medium"}>
