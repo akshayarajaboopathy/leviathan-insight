@@ -27,41 +27,41 @@ const CenterCharts = () => {
   }));
 
   return (
-    <div className="flex flex-col gap-3 flex-1 min-h-0">
-      <div className="panel flex-1 animate-fade-slow">
-        <div className="panel-header">
+    <div className="flex flex-col gap-2 h-full min-h-0">
+      <div className="panel flex-1 animate-fade-slow min-h-0">
+        <div className="panel-header py-2">
           <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
             Species Distribution
           </span>
         </div>
-        <div className="p-2" style={{ height: "calc(100% - 44px)" }}>
+        <div className="p-1" style={{ height: "calc(100% - 36px)" }}>
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
-              <Pie data={pieData} cx="50%" cy="50%" innerRadius="40%" outerRadius="72%" paddingAngle={2} dataKey="count" animationBegin={200} animationDuration={1000}>
+              <Pie data={pieData} cx="50%" cy="50%" innerRadius="35%" outerRadius="65%" paddingAngle={2} dataKey="count" animationBegin={200} animationDuration={1000}>
                 {pieData.map((_, i) => (
                   <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />
                 ))}
               </Pie>
               <Tooltip content={<CustomTooltip />} />
-              <Legend iconSize={8} wrapperStyle={{ fontSize: "11px" }} formatter={(value: string) => <span className="text-muted-foreground">{value}</span>} />
+              <Legend iconSize={6} wrapperStyle={{ fontSize: "10px" }} formatter={(value: string) => <span className="text-muted-foreground">{value}</span>} />
             </PieChart>
           </ResponsiveContainer>
         </div>
       </div>
 
-      <div className="panel flex-1 animate-fade-slow" style={{ animationDelay: "200ms" }}>
-        <div className="panel-header">
+      <div className="panel flex-1 animate-fade-slow min-h-0" style={{ animationDelay: "200ms" }}>
+        <div className="panel-header py-2">
           <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
             Top Species by Abundance
           </span>
         </div>
-        <div className="p-2" style={{ height: "calc(100% - 44px)" }}>
+        <div className="p-1" style={{ height: "calc(100% - 36px)" }}>
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={data.species_distribution} layout="vertical" margin={{ left: 10, right: 20, top: 5, bottom: 5 }}>
+            <BarChart data={data.species_distribution} layout="vertical" margin={{ left: 5, right: 15, top: 2, bottom: 2 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="hsl(210, 20%, 90%)" horizontal={false} />
-              <XAxis type="number" tick={{ fontSize: 10, fill: "hsl(213, 20%, 45%)" }} />
-              <YAxis dataKey="name" type="category" width={110} tick={{ fontSize: 10, fill: "hsl(213, 20%, 45%)" }} />
-              <Tooltip contentStyle={{ background: "hsl(0, 0%, 100%)", border: "1px solid hsl(210, 20%, 90%)", borderRadius: "6px", fontSize: "11px" }} />
+              <XAxis type="number" tick={{ fontSize: 9, fill: "hsl(213, 20%, 45%)" }} />
+              <YAxis dataKey="name" type="category" width={90} tick={{ fontSize: 9, fill: "hsl(213, 20%, 45%)" }} />
+              <Tooltip contentStyle={{ background: "hsl(0, 0%, 100%)", border: "1px solid hsl(210, 20%, 90%)", borderRadius: "6px", fontSize: "10px" }} />
               <Bar dataKey="count" radius={[0, 4, 4, 0]} animationBegin={400} animationDuration={800}>
                 {data.species_distribution.map((_, i) => (
                   <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />

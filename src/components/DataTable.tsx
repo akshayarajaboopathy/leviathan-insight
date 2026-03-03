@@ -32,26 +32,26 @@ const DataTable = () => {
 
   const headers: { key: SortKey; label: string }[] = [
     { key: "species", label: "Species Name" },
-    { key: "count", label: "Sequence Count" },
-    { key: "percentage", label: "Percentage" },
-    { key: "cluster", label: "Cluster ID" },
+    { key: "count", label: "Seq Count" },
+    { key: "percentage", label: "%" },
+    { key: "cluster", label: "Cluster" },
     { key: "confidence", label: "Confidence" },
   ];
 
   return (
-    <div className="panel animate-slide-up flex flex-col max-h-[220px]" style={{ animationDelay: "500ms", animationFillMode: "both" }}>
-      <div className="panel-header justify-between">
-        <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+    <div className="panel animate-slide-up h-full flex flex-col" style={{ animationDelay: "500ms", animationFillMode: "both" }}>
+      <div className="panel-header py-1.5 justify-between">
+        <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
           Biodiversity Table
         </span>
         <div className="relative">
-          <Search className="w-3.5 h-3.5 absolute left-2.5 top-1/2 -translate-y-1/2 text-muted-foreground" />
+          <Search className="w-3 h-3 absolute left-2 top-1/2 -translate-y-1/2 text-muted-foreground" />
           <input
             type="text"
             placeholder="Search species..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="text-xs bg-muted rounded-md pl-8 pr-3 py-1.5 border border-border focus:outline-none focus:ring-1 focus:ring-primary w-48"
+            className="text-[10px] bg-muted rounded-md pl-6 pr-2 py-1 border border-border focus:outline-none focus:ring-1 focus:ring-primary w-36"
           />
         </div>
       </div>
@@ -60,10 +60,10 @@ const DataTable = () => {
           <thead>
             <tr className="border-b border-border">
               {headers.map((h) => (
-                <th key={h.key} onClick={() => toggleSort(h.key)} className="table-header-cell cursor-pointer hover:text-foreground transition-colors select-none">
+                <th key={h.key} onClick={() => toggleSort(h.key)} className="px-3 py-1.5 text-left text-[10px] font-semibold uppercase tracking-wider text-muted-foreground cursor-pointer hover:text-foreground transition-colors select-none">
                   <span className="flex items-center gap-1">
                     {h.label}
-                    <ArrowUpDown className="w-3 h-3 opacity-40" />
+                    <ArrowUpDown className="w-2.5 h-2.5 opacity-40" />
                   </span>
                 </th>
               ))}
@@ -72,13 +72,13 @@ const DataTable = () => {
           <tbody>
             {filtered.map((row, i) => (
               <tr key={row.species} className={`border-b border-border/50 transition-colors hover:bg-muted/50 ${i === 0 ? "bg-accent/30" : ""}`}>
-                <td className="table-cell font-medium">{row.species}</td>
-                <td className="table-cell font-mono text-xs">{row.count.toLocaleString()}</td>
-                <td className="table-cell font-mono text-xs">{row.percentage}%</td>
-                <td className="table-cell">
-                  <span className="bg-secondary text-secondary-foreground text-[10px] font-semibold px-2 py-0.5 rounded-full">{row.cluster}</span>
+                <td className="px-3 py-1 text-xs font-medium">{row.species}</td>
+                <td className="px-3 py-1 font-mono text-[10px]">{row.count.toLocaleString()}</td>
+                <td className="px-3 py-1 font-mono text-[10px]">{row.percentage}%</td>
+                <td className="px-3 py-1">
+                  <span className="bg-secondary text-secondary-foreground text-[9px] font-semibold px-1.5 py-0.5 rounded-full">{row.cluster}</span>
                 </td>
-                <td className="table-cell font-mono text-xs">
+                <td className="px-3 py-1 font-mono text-[10px]">
                   <span className={row.confidence >= 0.93 ? "confidence-high" : "confidence-medium"}>
                     {(row.confidence * 100).toFixed(0)}%
                   </span>
