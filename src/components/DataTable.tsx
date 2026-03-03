@@ -39,7 +39,7 @@ const DataTable = () => {
   ];
 
   return (
-    <div className="panel animate-slide-up" style={{ animationDelay: "500ms", animationFillMode: "both" }}>
+    <div className="panel animate-slide-up h-full flex flex-col" style={{ animationDelay: "500ms", animationFillMode: "both" }}>
       <div className="panel-header justify-between">
         <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
           Biodiversity Table
@@ -55,7 +55,7 @@ const DataTable = () => {
           />
         </div>
       </div>
-      <div className="overflow-auto">
+      <div className="overflow-auto flex-1">
         <table className="w-full">
           <thead>
             <tr className="border-b border-border">
