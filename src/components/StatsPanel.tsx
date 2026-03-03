@@ -25,22 +25,22 @@ const StatCard = ({
 
   return (
     <div
-      className="stat-card animate-slide-up flex-1 flex flex-col justify-center"
+      className="stat-card animate-slide-up flex-1 flex flex-col justify-center p-3"
       style={{ animationDelay: `${delay * 100}ms`, animationFillMode: "both" }}
     >
-      <div className="flex items-start justify-between mb-3">
-        <div className="icon-circle">
-          <Icon className="w-4.5 h-4.5" />
+      <div className="flex items-start justify-between mb-1.5">
+        <div className="icon-circle w-8 h-8">
+          <Icon className="w-3.5 h-3.5" />
         </div>
       </div>
-      <div className="text-2xl font-bold text-foreground tracking-tight">
+      <div className="text-xl font-bold text-foreground tracking-tight">
         {format === "text"
           ? display
           : format === "decimal"
           ? animatedValue.toFixed(2)
           : animatedValue.toLocaleString()}
       </div>
-      <div className="text-xs text-muted-foreground mt-1 font-medium uppercase tracking-wider">
+      <div className="text-[10px] text-muted-foreground mt-0.5 font-medium uppercase tracking-wider">
         {label}
       </div>
     </div>
@@ -58,7 +58,7 @@ const StatsPanel = () => {
   ];
 
   return (
-    <div className="flex flex-col gap-3 h-full">
+    <div className="flex flex-col gap-2 h-full">
       {stats.map((stat, i) => (
         <StatCard key={stat.label} {...stat} delay={i} />
       ))}

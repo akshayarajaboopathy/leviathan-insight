@@ -19,12 +19,12 @@ const ClusterChart = () => {
   const { data } = useData();
   return (
     <div className="panel animate-fade-slow" style={{ animationDelay: "300ms" }}>
-      <div className="panel-header">
+      <div className="panel-header py-2">
         <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
           Cluster Visualization
         </span>
       </div>
-      <div className="p-2" style={{ height: 220 }}>
+      <div className="p-1" style={{ height: 180 }}>
         <ResponsiveContainer width="100%" height="100%">
           <ScatterChart margin={{ top: 10, right: 10, bottom: 10, left: 0 }}>
             <XAxis type="number" dataKey="x" domain={[0, 100]} hide />
@@ -62,8 +62,8 @@ const AnalysisLog = () => {
   }, [data.log_entries]);
 
   return (
-    <div className="panel animate-fade-slow flex flex-col" style={{ animationDelay: "400ms", flex: 1 }}>
-      <div className="panel-header">
+    <div className="panel animate-fade-slow flex flex-col" style={{ animationDelay: "400ms", flex: 1, minHeight: 0 }}>
+      <div className="panel-header py-2">
         <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
           Analysis Log
         </span>
@@ -84,7 +84,7 @@ const AnalysisLog = () => {
 };
 
 const RightPanel = () => (
-  <div className="flex flex-col gap-3 h-full">
+  <div className="flex flex-col gap-2 h-full min-h-0">
     <ClusterChart />
     <AnalysisLog />
   </div>
