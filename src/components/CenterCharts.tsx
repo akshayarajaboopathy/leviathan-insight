@@ -27,7 +27,7 @@ const CenterCharts = () => {
   }));
 
   return (
-    <div className="flex flex-col gap-3 h-full">
+    <div className="flex flex-col gap-3 min-h-0">
       <div className="panel flex-1 animate-fade-slow">
         <div className="panel-header">
           <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
