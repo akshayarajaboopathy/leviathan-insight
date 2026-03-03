@@ -25,7 +25,7 @@ const StatCard = ({
 
   return (
     <div
-      className="stat-card animate-slide-up"
+      className="stat-card animate-slide-up flex-1 flex flex-col justify-center"
       style={{ animationDelay: `${delay * 100}ms`, animationFillMode: "both" }}
     >
       <div className="flex items-start justify-between mb-3">
@@ -58,7 +58,7 @@ const StatsPanel = () => {
   ];
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3 h-full">
       {stats.map((stat, i) => (
         <StatCard key={stat.label} {...stat} delay={i} />
       ))}
