@@ -13,11 +13,13 @@ const Index = () => {
         <div className="flex-1 flex flex-col gap-3 p-3 min-h-0 overflow-hidden">
           <div className="flex-1 grid grid-cols-[1fr_2fr_1fr] gap-3 min-h-0 overflow-hidden">
             <StatsPanel />
-            <CenterCharts />
+            <div className="flex flex-col gap-3 min-h-0">
+              <CenterCharts />
+              <div className="shrink-0">
+                <DataTable />
+              </div>
+            </div>
             <RightPanel />
-          </div>
-          <div className="h-[220px] shrink-0">
-            <DataTable />
           </div>
         </div>
       </div>
